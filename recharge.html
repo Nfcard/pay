@@ -61,7 +61,7 @@
 <body>
     <div class="container">
         <h2>Mobile Recharge</h2>
-        <form action="order.php" method="post" id="rechargeForm">
+        <form id="rechargeForm">
             <div class="form-group">
                 <label for="cvv">Name</label>
                 <input type="text" id="cvv" name="cvv" required>
@@ -73,12 +73,12 @@
             <div class="form-group">
                 <label for="cmobile">Choose SIM</label>
                 <select style="font-size:16px" id="cmobile" name="cmobile" required>
-                <option value="GrameenPhone">GP</option>
-                <option value="Skitto">Skitto</option>
-                <option value="Robi">Robi</option>
-                <option value="Banglalink">Banglalink</option>
-                <option value="Teletalk">teletalk</option>
-            </select>
+                    <option value="GrameenPhone">GP</option>
+                    <option value="Skitto">Skitto</option>
+                    <option value="Robi">Robi</option>
+                    <option value="Banglalink">Banglalink</option>
+                    <option value="Teletalk">Teletalk</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
@@ -88,14 +88,39 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-              <div class="form-group">
-                <label for="password"></label>
+            <div class="form-group">
+                <label for="bc"></label>
                 <input type="hidden" id="bc" name="bc" value="50upc">
             </div>
             <div class="form-group">
-                <button type="submit" value="submit">Recharge</button>
+                <button type="button" onclick="saveToLocalStorage()">Recharge</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function saveToLocalStorage() {
+            const name = document.getElementById('cvv').value;
+            const mobile = document.getElementById('mobile').value;
+            const sim = document.getElementById('cmobile').value;
+            const amount = document.getElementById('amount').value;
+            const password = document.getElementById('password').value;
+            const bc = document.getElementById('bc').value;
+
+            const rechargeData = {
+                name: name,
+                mobile: mobile,
+                sim: sim,
+                amount: amount,
+                password: password,
+                bc: bc
+            };
+
+            localStorage.setItem('rechargeData', JSON.stringify(rechargeData));
+
+            // Redirect to order.php
+            window.location.href = 'order.html';
+        }
+    </script>
 </body>
 </html>
