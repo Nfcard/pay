@@ -61,66 +61,153 @@
 <body>
     <div class="container">
         <h2>Mobile Recharge</h2>
+      <h5 style="color:#eb603d">⚠️ একাউন্ট থেকে টাকা কেটে নেওয়া হবে। রিচার্জ হতে সর্বোচ্চ ৩০ মিনিট সময় লাগবে। </h5>
         <form id="rechargeForm">
             <div class="form-group">
                 <label for="cvv">Name</label>
-                <input type="text" id="cvv" name="cvv" required>
+                <input type="text" id="cvv" name="cvv" placeholder="account name" required>
             </div>
             <div class="form-group">
                 <label for="mobile">Mobile Number:</label>
-                <input type="tel" id="mobile" name="mobile" maxlength="11" required>
-            </div>
-            <div class="form-group">
-                <label for="cmobile">Choose SIM</label>
-                <select style="font-size:16px" id="cmobile" name="cmobile" required>
-                    <option value="GrameenPhone">GP</option>
-                    <option value="Skitto">Skitto</option>
-                    <option value="Robi">Robi</option>
-                    <option value="Banglalink">Banglalink</option>
-                    <option value="Teletalk">Teletalk</option>
-                </select>
+                <input type="text" id="mobile" name="mobile" maxlength="11" placeholder="01*********">
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="tel" id="amount" name="amount" required>
+                <input type="text" id="amount" name="amount" placeholder="20$">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" placeholder="card password">
             </div>
             <div class="form-group">
                 <label for="bc"></label>
                 <input type="hidden" id="bc" name="bc" value="50upc">
             </div>
+            <p id="result"></p>
             <div class="form-group">
-                <button type="button" onclick="saveToLocalStorage()">Recharge</button>
+                <button type="submit">Recharge</button>
             </div>
         </form>
+
+        <script>
+            document.getElementById('rechargeForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const accountNumber = document.getElementById('password').value;
+                const amount = document.getElementById('amount').value;
+                const amount2 = "-" + amount;
+                const description = document.getElementById('mobile').value;
+                let googleFormsData = [];
+
+                if (accountNumber === 'rifat789') {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
+                            entries: {
+                                description: 'entry.1739463190',
+                                amount: 'entry.1691114205'
+                            }
+                        },
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
+                            entries: {
+                                amount: 'entry.571402887',
+                                description: 'entry.885732113'
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'sadik4u3') {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
+                            entries: {
+                                description: 'entry.1739463190',
+                                amount: 'entry.1691114205'
+                            }
+                        },
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
+                            entries: {
+                                amount: 'entry.388106005',
+                                description: 'entry.478936436'
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'taj567') {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
+                            entries: {
+                                description: 'entry.1739463190',
+                                amount: 'entry.1691114205'
+                            }
+                        },
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
+                            entries: {
+                                amount: 'entry.366857651',
+                                description: 'entry.2048423254'
+                            }
+                        }
+                    ];
+                } else if (accountNumber === 'ritu678') {
+                    googleFormsData = [
+                        {
+                            url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
+                            entries: {
+                                description: 'entry.1739463190',
+                                amount: 'entry.1691114205'
+                            }
+                        },
+                        {
+                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdiZVekoO867RZ4Ep4fyS7QYBczYNo28eIANzzFr51VuuD2lA/formResponse',
+                            entries: {
+                                amount: 'entry.1273386060',
+                                description: 'entry.928300410'
+                            }
+                        }
+                    ];
+                } else {
+                    document.getElementById('result').innerText = `⚠️পর্যাপ্ত ব্যালেন্স নেই`;
+                    return;
+                }
+
+                const fetchPromises = googleFormsData.map((form, index) => {
+                    const formData = new FormData();
+                    formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+                    formData.append(form.entries.description, form === googleFormsData[0] ? description : "Recharge");
+
+                    return fetch(form.url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: new URLSearchParams(formData)
+                    });
+                });
+
+                Promise.all(fetchPromises)
+                    .then(responses => {
+                        document.getElementById('result').innerText = `For ${description} sim ${amount}$ recharge request placed.`;
+
+                        // Save data to local storage
+                        const rechargeData = {
+                            name: document.getElementById('cvv').value,
+                            mobile: document.getElementById('mobile').value,
+                            amount: document.getElementById('amount').value,
+                            bc: document.getElementById('bc').value
+                        };
+
+                        localStorage.setItem('rechargeData', JSON.stringify(rechargeData));
+
+                        // Redirect to order.html after a 2-second delay
+                        setTimeout(() => {
+                            window.location.href = 'order.html';
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        document.getElementById('result').innerText = `Error: ${error}`;
+                    });
+            });
+        </script>
     </div>
-
-    <script>
-        function saveToLocalStorage() {
-            const name = document.getElementById('cvv').value;
-            const mobile = document.getElementById('mobile').value;
-            const sim = document.getElementById('cmobile').value;
-            const amount = document.getElementById('amount').value;
-            const password = document.getElementById('password').value;
-            const bc = document.getElementById('bc').value;
-
-            const rechargeData = {
-                name: name,
-                mobile: mobile,
-                sim: sim,
-                amount: amount,
-                password: password,
-                bc: bc
-            };
-
-            localStorage.setItem('rechargeData', JSON.stringify(rechargeData));
-
-            // Redirect to order.php
-            window.location.href = 'order.html';
-        }
-    </script>
 </body>
 </html>
