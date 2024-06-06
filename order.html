@@ -110,7 +110,7 @@
         <div class="header">
             <i class="fas fa-check-circle"></i>
             <h2>Order Placed</h2>
-            <p>Your <span style="color: aqua;font-weight: bold" id="sim"></span> SIM recharge was successfully Ordered.</p>
+            <p>Your SIM recharge was successfully Ordered.</p>
         </div>
         <div class="summary">
             <p><i class="fas fa-wallet"></i> Amount paid using UP account</p>
@@ -120,6 +120,9 @@
                 <p>Phone number: <span style="color: black;font-weight: normal" id="mobile"></span></p>
                 <p>Bonus: <span style="color: black;font-weight: normal" id="bc"></span></p>
                 <p style="color:black" id="date"></p>
+              <p style="color:black" id="time"></p>
+              <h4 style="color:#eb603d">⚠️রিচার্জ হতে সর্বোচ্চ ৩০ মিনিট সময় লাগবে। নিচের সেভ বাটনে চাপ দিয়ে সেভ করো। </h4>
+      
             </div>
         </div>
         <button onclick="toPDF()" class="wallet-button">Save</button>
@@ -131,7 +134,7 @@
             const name = document.getElementById('name').innerText;
             const dateS = new Date().toLocaleDateString();
             html2pdf()
-                .set({ filename: name + "-" + dateS + "-invoice.pdf" })
+                .set({ filename: name + "-" + dateS + currentTime + "-invoice.pdf" })
                     .from(document.body)
                     .save();
         }
@@ -142,12 +145,13 @@
             if (rechargeData) {
                 document.getElementById('name').innerText = rechargeData.name;
                 document.getElementById('mobile').innerText = rechargeData.mobile;
-                document.getElementById('sim').innerText = rechargeData.sim;
                 document.getElementById('amount').innerText = rechargeData.amount;
                 document.getElementById('bc').innerText = rechargeData.bc;
 
                 // Create a new Date object
                 var today = new Date();
+const currentTime = new Date().toLocaleTimeString();
+console.log(currentTime);
 
                 // Get the day, month, and year
                 var day = today.getDate();
@@ -160,6 +164,7 @@
 
                 // Display the date in the HTML element with id "date"
                 document.getElementById("date").innerHTML = dateString;
+              document.getElementById("time").innerHTML = currentTime;
             } else {
                 // If no data is found, redirect back to the form
                 window.location.href = 'form.html';
