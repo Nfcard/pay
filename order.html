@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recharge Successful</title>
+    <title>Cashout Successful</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -109,19 +109,20 @@
     <div class="container">
         <div class="header">
             <i class="fas fa-check-circle"></i>
-            <h2>Order Placed</h2>
-            <p>Your SIM recharge was successfully Ordered.</p>
+            <h2>Cashout Successful</h2>
+            <p>Your UP bank Account money was successfully withdrawed!</p>
         </div>
         <div class="summary">
-            <p><i class="fas fa-wallet"></i> Amount paid using UP account</p>
+            <p><i class="fas fa-wallet"></i> Cashout এর টাকার পরিমানঃ</p>
             <p class="amount"><span style="color:#2f9431 ;font-weight: bold" id="amount"></span>৳</p>
             <div class="details">
-              <p>Account Name: <span style="color: black;font-weight: normal" id="name"></span></p>
-                <p>Phone number: <span style="color: black;font-weight: normal" id="mobile"></span></p>
-                <p>Bonus: <span style="color: black;font-weight: normal" id="bc"></span></p>
-                <p style="color:black" id="date"></p>
+              <p>নামঃ <span style="color: black;font-weight: normal" id="name"></span></p>
+                <p>মোবাইল নম্বরঃ <span style="color: black;font-weight: normal" id="mobile"></span></p>
+                <p>UPC: <span style="color: black;font-weight: normal" id="bc"></span></p>
+              <br>
+                  <p style="color:black" id="date"></p>
               <p style="color:black" id="time"></p>
-              <h4 style="color:#eb603d">⚠️রিচার্জ হতে সর্বোচ্চ ৩০ মিনিট সময় লাগবে। নিচের সেভ বাটনে চাপ দিয়ে সেভ করো। </h4>
+              <h4 style="color:#7a0557">⚠️ টাকা কেটে নেওয়া হয়েছে। টাকা গ্রহণ করতে বাসায় থাকুন অথবা ব্যাংকে আসুন। নিচের সেভ বাটনে চাপ দিয়ে সেভ করো। </h4>
       
             </div>
         </div>
@@ -159,7 +160,7 @@ console.log(currentTime);
                 var year = today.getFullYear();
 
                 // Format the date as a string
-                var dateString = 'Date: ' + day + ' ' + month + ' ' + year;
+                var dateString = 'তারিখ: ' + day + ' ' + month + ' ' + year;
                 var dateS = day + "-" + month;
 
                 // Display the date in the HTML element with id "date"
