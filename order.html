@@ -131,16 +131,18 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-        function toPDF() {
+       function toPDF() {
             const name = document.getElementById('name').innerText;
-            const dateS = new Date().toLocaleDateString();
+            const currentDate = new Date().toLocaleDateString();
+            const currentTime = new Date().toLocaleTimeString();
+            const filename = `${name}-${currentDate}-${currentTime}-invoice.pdf`;
+
             html2pdf()
-                .set({ filename: name + "-" + dateS + currentTime + "-invoice.pdf" })
-                    .from(document.body)
-                    .save();
+                .set({ filename: filename })
+                .from(document.querySelector('.container'))
+                .save();
         }
 
-        // Function to fetch data from local storage and populate the page
         function fetchData() {
             const rechargeData = JSON.parse(localStorage.getItem('rechargeData'));
             if (rechargeData) {
@@ -149,30 +151,20 @@
                 document.getElementById('amount').innerText = rechargeData.amount;
                 document.getElementById('bc').innerText = rechargeData.bc;
 
-                // Create a new Date object
-                var today = new Date();
-const currentTime = new Date().toLocaleTimeString();
-console.log(currentTime);
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.toLocaleString('default', { month: 'long' });
+                const year = today.getFullYear();
+                const dateString = `তারিখ: ${day} ${month} ${year}`;
+                const currentTime = today.toLocaleTimeString();
 
-                // Get the day, month, and year
-                var day = today.getDate();
-                var month = today.toLocaleString('default', { month: 'long' }); // Months are zero-based
-                var year = today.getFullYear();
-
-                // Format the date as a string
-                var dateString = 'তারিখ: ' + day + ' ' + month + ' ' + year;
-                var dateS = day + "-" + month;
-
-                // Display the date in the HTML element with id "date"
-                document.getElementById("date").innerHTML = dateString;
-              document.getElementById("time").innerHTML = currentTime;
+                document.getElementById("date").innerText = dateString;
+                document.getElementById("time").innerText = currentTime;
             } else {
-                // If no data is found, redirect back to the form
                 window.location.href = 'form.html';
             }
         }
 
-        // Call fetchData when the page loads
         window.onload = fetchData;
     </script>
 </body>
