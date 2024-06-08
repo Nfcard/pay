@@ -19,7 +19,7 @@
         }
 
         .container {
-            background-color:#32ad34 ;
+            background-color: #32ad34;
             color: black;
             border: none;
             text-align: center;
@@ -32,10 +32,8 @@
         .header {
             background-color: #32ad34;
             padding: 20px;
-            
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
-            
         }
 
         .header i {
@@ -56,18 +54,16 @@
             background: #fff;
             padding: 20px;
             width: 85%;
-            margin-left:7px;
-          border-bottom-left-radius: 16px;
+            margin-left: 7px;
+            border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
-           border-top-left-radius: 16px;
+            border-top-left-radius: 16px;
             border-top-right-radius: 16px;
-           
         }
 
         .summary p {
             margin: 10px 0;
             font-size: 16px;
-            
         }
 
         .summary .amount {
@@ -90,13 +86,12 @@
         .wallet-button {
             background-color: #32ad34;
             color: white;
-          width:100%;
-          border:none;
+            width: 100%;
+            border: none;
             padding: 10px;
             display: block;
             text-decoration: none;
-             border-radius: 16px;
-           
+            border-radius: 16px;
             font-size: 18px;
         }
 
@@ -116,25 +111,33 @@
             <p><i class="fas fa-wallet"></i> Cashout এর টাকার পরিমানঃ</p>
             <p class="amount"><span style="color:#2f9431 ;font-weight: bold" id="amount"></span>৳</p>
             <div class="details">
-              <p>Account Name: <span style="color: black;font-weight: normal" id="name"></span></p>
+                <p>Account Name: <span style="color: black;font-weight: normal" id="name"></span></p>
                 <p>Mobile Number: <span style="color: black;font-weight: normal" id="mobile"></span></p>
                 <p>UPC: <span style="color: black;font-weight: normal" id="bc"></span></p>
-              
-                  <p style="color:black" id="date"></p>
-              <p style="color:black" id="time"></p>
-              <h4 style="color:#7a0557">⚠️ টাকা কেটে নেওয়া হয়েছে। টাকা গ্রহণ করতে বাসায় থাকুন অথবা ব্যাংকে আসুন। নিচের সেভ বাটনে চাপ দিয়ে সেভ করো। </h4>
-      
+                <p style="color:black" id="date"></p>
+                <p style="color:black" id="time"></p>
+                <h4 style="color:#7a0557">⚠️ টাকা কেটে নেওয়া হয়েছে। টাকা গ্রহণ করতে বাসায় থাকুন অথবা ব্যাংকে আসুন। নিচের সেভ বাটনে চাপ দিয়ে সেভ করো। </h4>
             </div>
         </div>
         <button onclick="toPDF()" class="wallet-button">Save</button>
     </div>
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
-       function toPDF() {
+        function formatTime12Hour(date) {
+            let hours = date.getHours();
+            const minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+            return hours + ':' + strMinutes + ' ' + ampm;
+        }
+
+        function toPDF() {
             const name = document.getElementById('name').innerText;
             const currentDate = new Date().toLocaleDateString();
-            const currentTime = new Date().toLocaleTimeString();
+            const currentTime = formatTime12Hour(new Date());
             const filename = `${name}-${currentDate}-${currentTime}-invoice.pdf`;
 
             html2pdf()
@@ -156,7 +159,7 @@
                 const month = today.toLocaleString('default', { month: 'long' });
                 const year = today.getFullYear();
                 const dateString = `তারিখ: ${day} ${month} ${year}`;
-                const currentTime = today.toLocaleTimeString();
+                const currentTime = formatTime12Hour(today);
 
                 document.getElementById("date").innerText = dateString;
                 document.getElementById("time").innerText = currentTime;
