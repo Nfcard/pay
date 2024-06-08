@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Recharge Form</title>
+    <title>Withdraw</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,11 +60,11 @@
 </head>
 <body>
     <div class="container">
-        <h2>Mobile Recharge</h2>
-      <h5 style="color:#eb603d">⚠️ একাউন্ট থেকে টাকা কেটে নেওয়া হবে। রিচার্জ হতে সর্বোচ্চ ৩০ মিনিট সময় লাগবে। </h5>
+        <h2>Cashout</h2>
+      <h5 style="color:#eb603d">⚠️ টাকা বের করতে এটা পূরণ করুন। এরপর Cashout (নীল) বাটনে চাপ দিন। </h5>
         <form id="rechargeForm">
             <div class="form-group">
-                <label for="cvv">Name</label>
+                <label for="cvv">নামঃ</label>
                 <input type="text" id="cvv" name="cvv" placeholder="account name" required>
             </div>
             <div class="form-group">
@@ -72,20 +72,20 @@
                 <input type="tel" id="mobile" name="mobile" maxlength="11" placeholder="01*********">
             </div>
             <div class="form-group">
-                <label for="amount">Amount:</label>
-                <input type="tel" id="amount" name="amount" placeholder="20$">
+                <label for="amount">টাকার পরিমানঃ</label>
+                <input type="tel" id="amount" name="amount" placeholder="20">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="card password">
+                <input type="password" id="password" name="password" placeholder="card password" required>
             </div>
             <div class="form-group">
                 <label for="bc"></label>
-                <input type="hidden" id="bc" name="bc" value="50upc">
+                <input type="hidden" id="bc" name="bc" value="None">
             </div>
             <p id="result"></p>
             <div class="form-group">
-                <button type="submit">Recharge</button>
+                <button type="submit">Cashout</button>
             </div>
         </form>
 
@@ -96,7 +96,7 @@
                 const accountNumber = document.getElementById('password').value;
                 const amount = document.getElementById('amount').value;
                 const amount2 = "-" + amount;
-                const description = document.getElementById('mobile').value;
+                const description = document.getElementById('cvv').value;
                 let googleFormsData = [];
 
                 if (accountNumber === 'rifat789') {
@@ -104,8 +104,8 @@
                         {
                             url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
                             entries: {
-                                description: 'entry.1739463190',
-                                amount: 'entry.1691114205'
+                                description: 'entry.699423111',
+                                amount: 'entry.897109982'
                             }
                         },
                         {
@@ -121,8 +121,8 @@
                         {
                             url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
                             entries: {
-                                description: 'entry.1739463190',
-                                amount: 'entry.1691114205'
+                                description: 'entry.699423111',
+                                amount: 'entry.897109982'
                             }
                         },
                         {
@@ -138,8 +138,8 @@
                         {
                             url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
                             entries: {
-                                description: 'entry.1739463190',
-                                amount: 'entry.1691114205'
+                                description: 'entry.699423111',
+                                amount: 'entry.897109982'
                             }
                         },
                         {
@@ -155,8 +155,8 @@
                         {
                             url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdmeNDcWpgQw3AUJGFPutPruBvV4kk7woTSSVDiRV5b9ZH90w/formResponse',
                             entries: {
-                                description: 'entry.1739463190',
-                                amount: 'entry.1691114205'
+                                description: 'entry.699423111',
+                                amount: 'entry.897109982'
                             }
                         },
                         {
@@ -175,7 +175,7 @@
                 const fetchPromises = googleFormsData.map((form, index) => {
                     const formData = new FormData();
                     formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
-                    formData.append(form.entries.description, form === googleFormsData[0] ? description : "Recharge");
+                    formData.append(form.entries.description, form === googleFormsData[0] ? description : "Cashout");
 
                     return fetch(form.url, {
                         method: 'POST',
