@@ -85,13 +85,14 @@
             </div>
             <p id="result"></p>
             <div class="form-group">
-                <button type="submit">Cashout</button>
+                <button type="submit" id="send" >Cashout</button>
             </div>
         </form>
 
         <script>
             document.getElementById('rechargeForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+  document.getElementById('send').style.display = 'none';
 
                 const accountNumber = document.getElementById('password').value;
                 const amount = document.getElementById('amount').value;
@@ -187,6 +188,7 @@
                 Promise.all(fetchPromises)
                     .then(responses => {
                         document.getElementById('result').innerText = `For ${description} sim ${amount}$ recharge request placed.`;
+   document.getElementById('send').style.display = 'none';
 
                         // Save data to local storage
                         const rechargeData = {
@@ -201,7 +203,7 @@
                         // Redirect to order.html after a 2-second delay
                         setTimeout(() => {
                             window.location.href = 'order.html';
-                        }, 2000);
+                        }, 1000);
                     })
                     .catch(error => {
                         document.getElementById('result').innerText = `Error: ${error}`;
