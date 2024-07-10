@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Form</title>
+    <title>Up Pay 250g</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,14 +38,14 @@
             position: absolute;
             top: 10px;
             left: 20px;
-            font-size: 1.4em;
+            font-size: 2em;
         }
         .card-number {
             position: absolute;
             top: 50%;
             left: 20px;
             transform: translateY(-50%);
-            font-size: 1.2em;
+            font-size: 2em;
         }
         .card-validity {
             position: absolute;
@@ -103,15 +103,15 @@
 <body>
     <div class="card-form">
         <div class="card-display">
-            <div class="card-name" id="card-name-display">?</div>
-            <div class="card-number" id="card-number-display">●●●● ●●●● ●●●●</div>
-            <div class="card-validity">Validation 12/27</div>
-            <div class="card-logo"><img src="up.png" alt="UP Card Logo"/></div>
+            <div class="card-name" id="card-name-display">Name</div>
+            <div class="card-number" id="card-number-display">Card Number</div>
+            <div class="card-validity">Valid Thru 12 / 2027</div>
+            <div class="card-logo"><img src="up.png" alt="Mastercard Logo"/></div>
         </div>
         <form id="send-money-form">
             <label for="card-number">Card Number</label>
-            <input type="tel" id="card-number" maxlength="19" placeholder="6001 0000 0000" autocomplete="off">
-            <label for="card-name"> Card Holder Name</label>
+            <input type="tel" id="card-number" maxlength="19" placeholder="6001 0000 0000">
+            <label for="card-name">Name On Card</label>
             <input type="text" id="card-name" placeholder="Name" readonly>
             <div class="flex-row">
                 <div>
@@ -120,12 +120,13 @@
                 </div>
                 <div>
                     <label for="cvv">CVV</label>
-                    <input type="tel" id="cvv" placeholder="123" autocomplete="off">
+                    <input type="tel" id="cvv" placeholder="123">
                 </div>
             </div>
             <button class="send-button"id="send-button">Pay Now</button>
+          <p id="result" style="margin-left:20px;color:green;font-size:22px"></p>
         </form>
-        <p id="result">Protected By 🛡 end-to-end encryption</p>
+        <p>Protected By 🛡 end-to-end encryption</p>
     </div>
 
     <script>
@@ -137,22 +138,18 @@
 
         const cardNames = {
             "600100007890": "MD Adnan Arefin",
-            "600100009876": "Mst Ritu",
- "600100003241": "Sadik Hasan",
-            "600100008765": "MD Tajul Mulok",
- "00000000": "Invalid card",
-            "600100005678": "Md Rifat"
- "600100": "Loading",
-            "": "Name",
- "6001000": "loading",
-            "60010000": "loading."
+          "600100008765": "MD Tajul Mulok",
+          "600100005678": "MD Rifat Mondol",
+          "600100009876": "Mst Ritu",
+          "600100003241": "Sadik Hasan",
+            "5303545455554": "John Doe G"
         };
 
         cardNumberInput.addEventListener('input', () => {
             let formattedCardNumber = formatCardNumber(cardNumberInput.value);
             cardNumberInput.value = formattedCardNumber;
             cardNumberDisplay.textContent = formattedCardNumber;
-            cardNumberDisplay.style.fontSize = "1.2em"; // Adjusting font size in JavaScript
+            cardNumberDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
 
             let cleanedNumber = cardNumberInput.value.replace(/\s/g, '');
             if (cardNames[cleanedNumber]) {
@@ -182,7 +179,7 @@
             document.getElementById('send-button').style.display = 'none';
 
             const accountNumber2 = "Payment for Honey";
-            const amount = "0"; // Ensure amount is a number
+            const amount = "230"; // Ensure amount is a number
             const amount2 = "-" + amount;
             const description = document.getElementById('cvv').value;
             // Fetch data from local storage
@@ -349,11 +346,10 @@
         } else {
             let errorMessage = `🚫 `;
             if (description !== 'User1' && description !== 'User2' && description !== 'User3' && description !== 'User4' && description !== 'Rifat' && description !== 'Ritu' && description !== 'Taj' && description !== 'Sadik' && description !== 'Ratul') {
-                errorMessage += ` নাম ভুল হয়েছে, `;
+                errorMessage += ` Please type your CVV `;
             }
      
             document.getElementById('result').innerText = errorMessage;
-            document.getElementById('send-button').style.display = 'block'; // Show button again
             return;
         }
 
