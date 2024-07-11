@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Up Pay 250g</title>
+    <title>Payment 230tk</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,9 @@
             height: 100vh;
             background-color: #f0f0f0;
             margin: 0;
+            flex-direction: column;
         }
+
         .card-form {
             background: #fff;
             border-radius: 10px;
@@ -23,41 +25,49 @@
             max-width: 400px;
             box-sizing: border-box;
         }
+
         .card-display {
-            background: radial-gradient(circle at 0.2% 0.5%, rgb(181, 255, 255) 0%, rgb(252, 165, 241) 100.2%);
-            border-radius: 10px;
-            color: #000;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            height: 140px;
-            width: 100%;
-            box-sizing: border-box;
+    background: url('card.png') no-repeat center center;
+    background-size: contain; /* or use 'cover' depending on your preference */
+    border-radius: 10px;
+    color: #000;
+    padding: 20px;
+    height: 189px; /* Credit card ratio */
+    width: 300px; /* Credit card ratio */
+    position: relative; /* Ensures that child elements are positioned relative to this container */
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.card-name, .card-number {
+    position: absolute; /* Ensures that the elements are positioned relative to the .card-display container */
+    color: #000; /* Ensures text is visible on the card background */
+}
+
+.card-name {
+    top: 18px; /* Adjust this value to position the name correctly */
+    left: 20px; /* Adjust this value to position the name correctly */
+    font-size: 2.2em; /* Adjust the font size as needed */
+}
+
+.card-number {
+    bottom: 55px; /* Adjust this value to position the number correctly */
+    left: 20px; /* Adjust this value to position the number correctly */
+    font-size: 2em; /* Adjust the font size as needed */
+}
+        @media (max-width: 320px) {
+            .card-display {
+                width: 90%; /* Adjust for very small screens */
+                height: auto; /* Maintain aspect ratio */
+            }
         }
-        .card-name {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 2em;
-        }
-        .card-number {
-            position: absolute;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            font-size: 2em;
-        }
-        .card-validity {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            font-size: 1em;
-        }
-        .card-logo {
+
+               .card-logo {
             position: absolute;
             bottom: 10px;
             right: 20px;
         }
+
         input {
             width: calc(100% - 5px);
             padding: 10px;
@@ -66,14 +76,17 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
+
         .flex-row {
             display: flex;
             gap: 10px;
         }
+
         .flex-row input {
             width: 100%;
         }
-       .send-button {
+
+        .send-button {
             width: calc(100% - 20px);
             padding: 10px;
             background: #007bff;
@@ -84,9 +97,11 @@
             cursor: pointer;
             margin: 10px;
         }
-       .send-button:hover {
+
+        .send-button:hover {
             background: #0056b3;
         }
+
         @media (max-width: 480px) {
             .card-display {
                 font-size: 0.8em;
@@ -103,16 +118,14 @@
 <body>
     <div class="card-form">
         <div class="card-display">
-            <div class="card-name" id="card-name-display">Name</div>
-            <div class="card-number" id="card-number-display">Card Number</div>
-            <div class="card-validity">Valid Thru 12 / 2027</div>
-            <div class="card-logo"><img src="up.png" alt="Mastercard Logo"/></div>
+            <div class="card-name" id="card-name-display"></div>
+            <div class="card-number" id="card-number-display"></div>
         </div>
-        <form id="send-money-form">
+        <form id="send-money-form"><br>
             <label for="card-number">Card Number</label>
-            <input type="tel" id="card-number" maxlength="19" placeholder="●●●● ●●●● ●●●●">
+            <input type="tel" id="card-number" maxlength="19" placeholder="●●●● ●●●● ●●●●" required>
             <label for="card-name">Name On Card</label>
-            <input type="text" id="card-name" placeholder="Name" readonly>
+            <input type="text" id="card-name" placeholder="?" readonly required>
             <div class="flex-row">
                 <div>
                     <label for="expiry">Expiry (MM/YY)</label>
@@ -120,77 +133,100 @@
                 </div>
                 <div>
                     <label for="cvv">CVV</label>
-                    <input type="tel" id="cvv" placeholder="***" Required>
+                    <input type="tel" id="cvv" placeholder="●●●">
                 </div>
             </div>
-            <button class="send-button"id="send-button">Pay Now</button>
-          <p id="result" style="margin-left:20px;color:green;font-size:22px"></p>
+            <button class="send-button" id="send-button">Pay Now</button>
+            
+          <p id="result" style="margin-left:20px;color:green">🔒 Protected By end-to-end encryption</p>
+            
         </form>
-        <p>Protected By 🛡 end-to-end encryption</p>
     </div>
 
     <script>
-        const cardNumberInput = document.getElementById('card-number');
-        const cardNameInput = document.getElementById('card-name');
-        const expiryInput = document.getElementById('expiry');
-        const cardNumberDisplay = document.getElementById('card-number-display');
-        const cardNameDisplay = document.getElementById('card-name-display');
+   const cardNumberInput = document.getElementById('card-number');
+const cardNameInput = document.getElementById('card-name');
+const expiryInput = document.getElementById('expiry');
+const cardNumberDisplay = document.getElementById('card-number-display');
+const cardNameDisplay = document.getElementById('card-name-display');
 
-        const cardNames = {
-            "600100007890": "MD Adnan Arefin",
-          "600100008765": "MD Tajul Mulok",
-          "600100005678": "MD Rifat Mondol",
-          "600100009876": "Mst Ritu",
-          "600100003241": "Sadik Hasan",
-            "5303545455554": "John Doe G"
-        };
+const cardNames = {
+    "600100007890": "MD Adnan Arefin",
+    "600100008765": "MD Tajul Mulok",
+    "600100005678": "MD Rifat Mondol",
+    "600100009876": "Mst Ritu",
+    "600100003241": "Sadik Hasan",
+    "5303545455554": "John Doe G"
+};
 
-        cardNumberInput.addEventListener('input', () => {
-            let formattedCardNumber = formatCardNumber(cardNumberInput.value);
-            cardNumberInput.value = formattedCardNumber;
-            cardNumberDisplay.textContent = formattedCardNumber;
-            cardNumberDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
+cardNumberInput.addEventListener('input', () => {
+    let formattedCardNumber = formatCardNumber(cardNumberInput.value);
+    cardNumberInput.value = formattedCardNumber;
+    cardNumberDisplay.textContent = formattedCardNumber;
+    cardNumberDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
 
-            let cleanedNumber = cardNumberInput.value.replace(/\s/g, '');
-            if (cardNames[cleanedNumber]) {
-                cardNameInput.value = cardNames[cleanedNumber];
-                cardNameDisplay.textContent = cardNames[cleanedNumber];
-            } else {
-                cardNameInput.value = "Name"; // Default name
-                cardNameDisplay.textContent = "Name";
-            }
-            cardNameDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
-        });
+    let cleanedNumber = cardNumberInput.value.replace(/\s/g, '');
+    if (cardNames[cleanedNumber]) {
+        cardNameInput.value = cardNames[cleanedNumber];
+        cardNameDisplay.textContent = cardNames[cleanedNumber];
+    } else {
+        cardNameInput.value = ""; // Default name
+        cardNameDisplay.textContent = "";
+    }
+    cardNameDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
+});
 
-        expiryInput.addEventListener('input', () => {
-            expiryInput.value = formatExpiry(expiryInput.value);
-        });
+expiryInput.addEventListener('input', () => {
+    expiryInput.value = formatExpiry(expiryInput.value);
+});
 
-        function formatCardNumber(number) {
-            return number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
-        }
+function formatCardNumber(number) {
+    return number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+}
 
-        function formatExpiry(date) {
-            return date.replace(/^(\d\d)(\d)$/g, '$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g, '$1');
-        }
+function formatExpiry(date) {
+    return date.replace(/^(\d\d)(\d)$/g, '$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g, '$1');
+}
 
-        document.getElementById('send-money-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('send-button').style.display = 'none';
+document.getElementById('send-money-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('send-button').style.display = 'none';
 
-            const accountNumber2 = "Payment for Honey";
-            const amount = "230"; // Ensure amount is a number
-            const amount2 = "-" + amount;
-            const description = document.getElementById('cvv').value;
-            // Fetch data from local storage
-            const surl = localStorage.getItem('surl');
-            const saentry = localStorage.getItem('saentry');
-            const sdentry = localStorage.getItem('sdentry');
+    const accountNumber2 = "Payment for Honey";
+    const amount = "0"; // Ensure amount is a number
+    const amount2 = "-" + amount;
+    const description = document.getElementById('cvv').value;
+    // Fetch data from local storage
+    const surl = localStorage.getItem('surl');
+    const saentry = localStorage.getItem('saentry');
+    const sdentry = localStorage.getItem('sdentry');
+
+    // Check if surl, saentry, or sdentry is empty
+    if (!surl || !saentry || !sdentry) {
+        document.getElementById('result').innerText = "Please Login First";
+        document.getElementById('send-button').style.display = 'block';
+        return;
+    }
 
             let googleFormsData = [];
-             // Example fetched data value, you need to replace this with the actual value
-
-            if (description === '789' ) {
+         if (description === '789' ) {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.571402887',
+                            description: 'entry.885732113'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else if (description === '243'  ) {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
@@ -207,30 +243,13 @@
                         }
                     }
                 ];
-            } else if (description === '243') {
+            } else if ( description === '143'  ) {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                         entries: {
-                            amount: 'entry.1522107311',
-                            description: 'entry.1449208456'
-                        }
-                    },
-                    {
-                        url: surl,
-                        entries: {
-                            amount: saentry,
-                            description: sdentry
-                        }
-                    }
-                ];
-            } else if (description === '143') {
-                googleFormsData = [
-                    {
-                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                        entries: {
-                            amount: 'entry.1522107311',
-                            description: 'entry.1449208456'
+                            amount: 'entry.388106005',
+                            description: 'entry.478936436'
                         }
                     },
                     {
@@ -246,8 +265,8 @@
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                     entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
+                        amount: 'entry.366857651',
+                        description: 'entry.2048423254'
                     }
                 },
                 {
@@ -263,8 +282,8 @@
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
                     entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
+                        amount: 'entry.1273386060',
+                        description: 'entry.928300410'
                     }
                 },
                 {
@@ -344,35 +363,39 @@
                 }
             ];
         } else {
-            let errorMessage = `🚫 `;
-            if (description !== '123' && description !== '234' && description !== '345' && description !== '456' && description !== '789' && description !== '678' && description !== '567' && description !== '143' && description !== '243') {
-                errorMessage += ` Please type your CVV `;
-            }
-     
-            document.getElementById('result').innerText = errorMessage;
-            return;
+        let errorMessage = `🚫 `;
+        if (description !== '123' && description !== '234' && description !== '345' && description !== '456' && description !== '789' && description !== '678' && description !== '567' && description !== '143' && description !== '243') {
+            errorMessage += ` Please type your CVV `;
+        } 
+        if (surl ==='' && saentry ==='' && sdentry ==='') {
+            errorMessage += ` Please Login First `;
         }
 
-        googleFormsData.forEach((form, index) => {
-            const formData = new FormData();
-            formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
-            formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber2);
+        document.getElementById('result').innerText = errorMessage;
+        document.getElementById('send-button').style.display = 'block';
+        return;
+    }
 
-            fetch(form.url, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: new URLSearchParams(formData)
-            })
-            .then(response => {
-                document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
-                document.getElementById('send-button').style.display = 'block'; // Show button again
-            })
-            .catch(error => {
-                document.getElementById('result').innerText = `Error: ${error}`;
-                document.getElementById('send-button').style.display = 'block'; // Show button again
-            });
+    googleFormsData.forEach((form, index) => {
+        const formData = new FormData();
+        formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+        formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber2);
+
+        fetch(form.url, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new URLSearchParams(formData)
+        })
+        .then(response => {
+            document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
+            document.getElementById('send-button').style.display = 'block'; // Show button again
+        })
+        .catch(error => {
+            document.getElementById('result').innerText = `Error: ${error}`;
+            document.getElementById('send-button').style.display = 'block'; // Show button again
         });
     });
+});
     </script>
 </body>
 </html>
