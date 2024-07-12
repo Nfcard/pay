@@ -101,9 +101,14 @@
                     .then(data => {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(data, 'text/html');
-                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(1)');
-                        const cellText = cellElement.innerText || cellElement.textContent;
-                        fetchedDataValue1 = parseFloat(cellText.trim());
+                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(2)');
+                        if (cellElement) {
+                            const cellText = cellElement.innerText || cellElement.textContent;
+                            fetchedDataValue1 = parseFloat(cellText.trim());
+                            console.log('Fetched data1:', fetchedDataValue1);
+                        } else {
+                            console.error('Error: Cell element not found for data1');
+                        }
                     })
                     .catch(error => console.error('Error fetching data1:', error));
             }
@@ -116,10 +121,15 @@
                     .then(data => {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(data, 'text/html');
-                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(2)');
-                        const cellText = cellElement.innerText || cellElement.textContent;
-                        fetchedDataValue2 = parseFloat(cellText.trim());
-                        })
+                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(3)');
+                        if (cellElement) {
+                            const cellText = cellElement.innerText || cellElement.textContent;
+                            fetchedDataValue2 = parseFloat(cellText.trim());
+                            console.log('Fetched data2:', fetchedDataValue2);
+                        } else {
+                            console.error('Error: Cell element not found for data2');
+                        }
+                    })
                     .catch(error => console.error('Error fetching data2:', error));
             }
 
@@ -132,18 +142,17 @@
                 const button = document.getElementById('send-button');
                 button.style.display = 'none';
 
-                const code = document.getElementById('code').value;
+                const code = parseFloat(document.getElementById('code').value);
                 const amount = fetchedDataValue1;
                 const description = 'Cash-In [using code]';
-                  
+                
                 let googleFormsData = [];
                 
-                // Fetch surl, saentry, sdentry from local storage
                 const surl = localStorage.getItem('surl');
                 const saentry = localStorage.getItem('saentry');
                 const sdentry = localStorage.getItem('sdentry');
-
-                const storedData2 = localStorage.getItem('fetchedData2');
+                
+                const storedData2 = parseFloat(localStorage.getItem('fetchedData2'));
 
                 if (code === storedData2) {
                     console.log('Already collected, try again later.');
@@ -163,7 +172,6 @@
                         }
                     ];
 
-                    // Save the fetchedData2 to local storage after form submission
                     localStorage.setItem('fetchedData2', fetchedDataValue2);
                 } else {
                     console.log('Account number is not recognized. Form submission aborted.');
