@@ -80,7 +80,7 @@
     <button class="claim-button1" onclick="window.history.back()"><i class="fas fa-circle-arrow-left"></i></button>
 
     <div class="form-container">
-        <h2></h2>
+        <h2>কোড দিন</h2>
         <form id="money-form">
             <label for="code"></label>
             <input type="tel" id="code" placeholder="Code" required>
@@ -101,7 +101,7 @@
                     .then(data => {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(data, 'text/html');
-                        const cellElement = doc.querySelector('table tbody tr:nth-child(2) td:nth-child(2)');
+                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(1)');
                         const cellText = cellElement.innerText || cellElement.textContent;
                         fetchedDataValue1 = parseFloat(cellText.trim());
                     })
@@ -116,7 +116,7 @@
                     .then(data => {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(data, 'text/html');
-                        const cellElement = doc.querySelector('table tbody tr:nth-child(2) td:nth-child(3)');
+                        const cellElement = doc.querySelector('table tbody tr:nth-child(1) td:nth-child(2)');
                         const cellText = cellElement.innerText || cellElement.textContent;
                         fetchedDataValue2 = parseFloat(cellText.trim());
                         })
@@ -135,7 +135,6 @@
                 const code = document.getElementById('code').value;
                 const amount = fetchedDataValue1;
                 const description = 'Cash-In [using code]';
-  localStorage.setItem('fetchedData2', fetchedDataValue2);
                   
                 let googleFormsData = [];
                 
