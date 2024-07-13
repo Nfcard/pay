@@ -192,8 +192,8 @@ document.getElementById('send-money-form').addEventListener('submit', function(e
     e.preventDefault();
     document.getElementById('send-button').style.display = 'none';
 
-    const accountNumber2 = "Payment for Honey";
-    const amount = "0"; // Ensure amount is a number
+    const accountNumber2 = "Payment for Honey 1kg";
+    const amount = "899"; // Ensure amount is a number
     const amount2 = "-" + amount;
     const description = document.getElementById('cvv').value;
     // Fetch data from local storage
@@ -389,6 +389,9 @@ document.getElementById('send-money-form').addEventListener('submit', function(e
         .then(response => {
             document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
             document.getElementById('send-button').style.display = 'block'; // Show button again
+            setTimeout(function() {
+    window.location.href = 'https://proyojoniobazar.github.io/shop/saving.html';
+}, 1000); // 3000 milliseconds = 3 seconds
         })
         .catch(error => {
             document.getElementById('result').innerText = `Error: ${error}`;
