@@ -27,42 +27,43 @@
         }
 
         .card-display {
-    background: url('card.png') no-repeat center center;
-    background-size: contain; /* or use 'cover' depending on your preference */
-    border-radius: 10px;
-    color: #000;
-    padding: 20px;
-    height: 189px; /* Credit card ratio */
-    width: 300px; /* Credit card ratio */
-    position: relative; /* Ensures that child elements are positioned relative to this container */
-    box-sizing: border-box;
-    margin: 0 auto;
-}
+            background: url('card.png') no-repeat center center;
+            background-size: contain;
+            border-radius: 10px;
+            color: #000;
+            padding: 20px;
+            height: 189px;
+            width: 300px;
+            position: relative;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
 
-.card-name, .card-number {
-    position: absolute; /* Ensures that the elements are positioned relative to the .card-display container */
-    color: #000; /* Ensures text is visible on the card background */
-}
+        .card-name, .card-number {
+            position: absolute;
+            color: #000;
+        }
 
-.card-name {
-    top: 18px; /* Adjust this value to position the name correctly */
-    left: 20px; /* Adjust this value to position the name correctly */
-    font-size: 2.2em; /* Adjust the font size as needed */
-}
+        .card-name {
+            top: 18px;
+            left: 20px;
+            font-size: 2.2em;
+        }
 
-.card-number {
-    bottom: 55px; /* Adjust this value to position the number correctly */
-    left: 20px; /* Adjust this value to position the number correctly */
-    font-size: 2em; /* Adjust the font size as needed */
-}
+        .card-number {
+            bottom: 55px;
+            left: 20px;
+            font-size: 2em;
+        }
+
         @media (max-width: 320px) {
             .card-display {
-                width: 90%; /* Adjust for very small screens */
-                height: auto; /* Maintain aspect ratio */
+                width: 90%;
+                height: auto;
             }
         }
 
-               .card-logo {
+        .card-logo {
             position: absolute;
             bottom: 10px;
             right: 20px;
@@ -137,79 +138,93 @@
                 </div>
             </div>
             <button class="send-button" id="send-button">Pay Now</button>
-            
-          <p id="result" style="margin-left:20px;color:green">🔒 Protected By end-to-end encryption</p>
-            
+            <p id="result" style="margin-left:20px;color:green">🔒 Protected By end-to-end encryption</p>
         </form>
     </div>
 
     <script>
-   const cardNumberInput = document.getElementById('card-number');
-const cardNameInput = document.getElementById('card-name');
-const expiryInput = document.getElementById('expiry');
-const cardNumberDisplay = document.getElementById('card-number-display');
-const cardNameDisplay = document.getElementById('card-name-display');
+        const cardNumberInput = document.getElementById('card-number');
+        const cardNameInput = document.getElementById('card-name');
+        const expiryInput = document.getElementById('expiry');
+        const cardNumberDisplay = document.getElementById('card-number-display');
+        const cardNameDisplay = document.getElementById('card-name-display');
 
-const cardNames = {
-    "600100007890": "MD Adnan Arefin",
-    "600100008765": "MD Tajul Mulok",
-    "600100005678": "MD Rifat Mondol",
-    "600100009876": "Mst Ritu",
-    "600100003241": "Sadik Hasan",
-    "5303545455554": "John Doe G"
-};
+        const cardNames = {
+            "600100007890": "MD Adnan Arefin",
+            "600100008765": "MD Tajul Mulok",
+            "600100005678": "MD Rifat Mondol",
+            "600100009876": "Mst Ritu",
+            "600100003241": "Sadik Hasan",
+            "5303545455554": "John Doe G"
+        };
 
-cardNumberInput.addEventListener('input', () => {
-    let formattedCardNumber = formatCardNumber(cardNumberInput.value);
-    cardNumberInput.value = formattedCardNumber;
-    cardNumberDisplay.textContent = formattedCardNumber;
-    cardNumberDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
+        cardNumberInput.addEventListener('input', () => {
+            let formattedCardNumber = formatCardNumber(cardNumberInput.value);
+            cardNumberInput.value = formattedCardNumber;
+            cardNumberDisplay.textContent = formattedCardNumber;
+            cardNumberDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
 
-    let cleanedNumber = cardNumberInput.value.replace(/\s/g, '');
-    if (cardNames[cleanedNumber]) {
-        cardNameInput.value = cardNames[cleanedNumber];
-        cardNameDisplay.textContent = cardNames[cleanedNumber];
-    } else {
-        cardNameInput.value = ""; // Default name
-        cardNameDisplay.textContent = "";
-    }
-    cardNameDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
-});
+            let cleanedNumber = cardNumberInput.value.replace(/\s/g, '');
+            if (cardNames[cleanedNumber]) {
+                cardNameInput.value = cardNames[cleanedNumber];
+                cardNameDisplay.textContent = cardNames[cleanedNumber];
+            } else {
+                cardNameInput.value = ""; // Default name
+                cardNameDisplay.textContent = "";
+            }
+            cardNameDisplay.style.fontSize = "2em"; // Adjusting font size in JavaScript
+        });
 
-expiryInput.addEventListener('input', () => {
-    expiryInput.value = formatExpiry(expiryInput.value);
-});
+        expiryInput.addEventListener('input', () => {
+            expiryInput.value = formatExpiry(expiryInput.value);
+        });
 
-function formatCardNumber(number) {
-    return number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
-}
+        function formatCardNumber(number) {
+            return number.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        }
 
-function formatExpiry(date) {
-    return date.replace(/^(\d\d)(\d)$/g, '$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g, '$1');
-}
+        function formatExpiry(date) {
+            return date.replace(/^(\d\d)(\d)$/g, '$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g, '$1');
+        }
 
-document.getElementById('send-money-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    document.getElementById('send-button').style.display = 'none';
+        function getUrlParams() {
+            const params = {};
+            window.location.search.substring(1).split('&').forEach(param => {
+                const [key, value] = param.split('=');
+                params[key] = decodeURIComponent(value);
+            });
+            return params;
+        }
 
-    const accountNumber2 = "Payment for Honey 1kg";
-    const amount = "899"; // Ensure amount is a number
-    const amount2 = "-" + amount;
-    const description = document.getElementById('cvv').value;
-    // Fetch data from local storage
-    const surl = localStorage.getItem('surl');
-    const saentry = localStorage.getItem('saentry');
-    const sdentry = localStorage.getItem('sdentry');
+        document.getElementById('send-money-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const params = getUrlParams();
+            const amount = parseFloat(params.total);
 
-    // Check if surl, saentry, or sdentry is empty
-    if (!surl || !saentry || !sdentry) {
-        document.getElementById('result').innerText = "Please Login First";
-        document.getElementById('send-button').style.display = 'block';
-        return;
-    }
+            if (isNaN(amount) || amount <= 250) {
+                document.getElementById('result').innerText = "Amount must be greater than 250";
+                return;
+            }
+
+            document.getElementById('send-button').style.display = 'none';
+
+            const accountNumber2 = "Payment for Honey 1kg";
+            const amount2 = "-" + amount;
+            const description = document.getElementById('cvv').value;
+            // Fetch data from local storage
+            const surl = localStorage.getItem('surl');
+            const saentry = localStorage.getItem('saentry');
+            const sdentry = localStorage.getItem('sdentry');
+
+            // Check if surl, saentry, or sdentry is empty
+            if (!surl || !saentry || !sdentry) {
+                document.getElementById('result').innerText = "Please Login First";
+                document.getElementById('send-button').style.display = 'block';
+                return;
+            }
 
             let googleFormsData = [];
-         if (description === '789' ) {
+            if (description === '789') {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
@@ -226,7 +241,7 @@ document.getElementById('send-money-form').addEventListener('submit', function(e
                         }
                     }
                 ];
-            } else if (description === '243'  ) {
+            } else if (description === '243') {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
@@ -243,7 +258,7 @@ document.getElementById('send-money-form').addEventListener('submit', function(e
                         }
                     }
                 ];
-            } else if ( description === '143'  ) {
+            } else if (description === '143') {
                 googleFormsData = [
                     {
                         url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
@@ -260,145 +275,145 @@ document.getElementById('send-money-form').addEventListener('submit', function(e
                         }
                     }
                 ];
-            } else if (description === '567'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.366857651',
-                        description: 'entry.2048423254'
+            } else if (description === '567') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.366857651',
+                            description: 'entry.2048423254'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
                     }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
+                ];
+            } else if (description === '678') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1273386060',
+                            description: 'entry.928300410'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
                     }
+                ];
+            } else if (description === '123') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else if (description === '234') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else if (description === '345') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else if (description === '456') {
+                googleFormsData = [
+                    {
+                        url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
+                        entries: {
+                            amount: 'entry.1522107311',
+                            description: 'entry.1449208456'
+                        }
+                    },
+                    {
+                        url: surl,
+                        entries: {
+                            amount: saentry,
+                            description: sdentry
+                        }
+                    }
+                ];
+            } else {
+                let errorMessage = `🚫 `;
+                if (description !== '123' && description !== '234' && description !== '345' && description !== '456' && description !== '789' && description !== '678' && description !== '567' && description !== '143' && description !== '243') {
+                    errorMessage += ` Please type your CVV `;
+                } 
+                if (!surl && !saentry && !sdentry) {
+                    errorMessage += ` Please Login First `;
                 }
-            ];
-        } else if (description === '678'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.1273386060',
-                        description: 'entry.928300410'
-                    }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
-                    }
-                }
-            ];
-        } else if (description === '123'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
-                    }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
-                    }
-                }
-            ];
-        } else if (description === '234'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
-                    }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
-                    }
-                }
-            ];
-        } else if (description === '345'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
-                    }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
-                    }
-                }
-            ];
-        } else if (description === '456'  ) {
-            googleFormsData = [
-                {
-                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse',
-                    entries: {
-                        amount: 'entry.1522107311',
-                        description: 'entry.1449208456'
-                    }
-                },
-                {
-                    url: surl,
-                    entries: {
-                        amount: saentry,
-                        description: sdentry
-                    }
-                }
-            ];
-        } else {
-        let errorMessage = `🚫 `;
-        if (description !== '123' && description !== '234' && description !== '345' && description !== '456' && description !== '789' && description !== '678' && description !== '567' && description !== '143' && description !== '243') {
-            errorMessage += ` Please type your CVV `;
-        } 
-        if (surl ==='' && saentry ==='' && sdentry ==='') {
-            errorMessage += ` Please Login First `;
-        }
 
-        document.getElementById('result').innerText = errorMessage;
-        document.getElementById('send-button').style.display = 'block';
-        return;
-    }
+                document.getElementById('result').innerText = errorMessage;
+                document.getElementById('send-button').style.display = 'block';
+                return;
+            }
 
-    googleFormsData.forEach((form, index) => {
-        const formData = new FormData();
-        formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
-        formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber2);
+            googleFormsData.forEach((form, index) => {
+                const formData = new FormData();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+                formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber2);
 
-        fetch(form.url, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: new URLSearchParams(formData)
-        })
-        .then(response => {
-            document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
-            document.getElementById('send-button').style.display = 'block'; // Show button again
-            setTimeout(function() {
-    window.location.href = 'https://proyojoniobazar.github.io/shop/saving.html';
-}, 1000); // 3000 milliseconds = 3 seconds
-        })
-        .catch(error => {
-            document.getElementById('result').innerText = `Error: ${error}`;
-            document.getElementById('send-button').style.display = 'block'; // Show button again
+                fetch(form.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => {
+                    document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
+                    document.getElementById('send-button').style.display = 'block'; // Show button again
+                    setTimeout(function() {
+                        window.location.href = 'https://proyojoniobazar.github.io/shop/saving.html';
+                    }, 1000); // 1000 milliseconds = 1 second
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = `Error: ${error}`;
+                    document.getElementById('send-button').style.display = 'block'; // Show button again
+                });
+            });
         });
-    });
-});
     </script>
 </body>
 </html>
