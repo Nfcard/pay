@@ -90,21 +90,7 @@
             width: 100%;
         }
 
-        .send-button {
-            width: calc(100% - 20px);
-            padding: 10px;
-            background: #007bff;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 1em;
-            cursor: pointer;
-            margin: 10px;
-        }
-
-        .send-button:hover {
-            background: #0056b3;
-        }
+        
   .panel-footer {
   display: flex;
   flex-direction: row;
@@ -252,8 +238,7 @@
                 return;
             }
 
-            document.getElementById('send-button').style.display = 'none';
-
+            
             const accountNumber2 = "Payment for Honey";
             const amount2 = "-" + amount;
             const description = document.getElementById('cvv').value;
@@ -265,7 +250,6 @@
             // Check if surl, saentry, or sdentry is empty
             if (!surl || !saentry || !sdentry) {
                 document.getElementById('result').innerText = "Please Login First";
-                document.getElementById('send-button').style.display = 'block';
                 return;
             }
 
@@ -433,7 +417,6 @@
                 }
 
                 document.getElementById('result').innerText = errorMessage;
-                document.getElementById('send-button').style.display = 'block';
                 return;
             }
 
@@ -449,15 +432,13 @@
                 })
                 .then(response => {
                     document.getElementById('result').innerText = `${amount}৳ has Successfully paid ✅️`;
-                    document.getElementById('send-button').style.display = 'block'; // Show button again
                     setTimeout(function() {
                         window.location.href = 'https://proyojoniobazar.github.io/shop/saving.html';
                     }, 1000); // 1000 milliseconds = 1 second
                 })
                 .catch(error => {
                     document.getElementById('result').innerText = `Error: ${error}`;
-                    document.getElementById('send-button').style.display = 'block'; // Show button again
-                });
+                     });
             });
         });
     </script>
