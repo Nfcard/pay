@@ -1,22 +1,8 @@
+
  document.addEventListener("DOMContentLoaded", function() {
-    function saveLink() {
-      const sheetLink = 'https://docs.google.com/spreadsheets/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/gviz/tq?gid=1236981988'; // Replace gid with the actual sheet ID
-      const surl = 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse';
-      const saentry = 'entry.1522107311';
-      const sdentry = 'entry.1449208456';
-      const tbl = 1;
-        const qurl = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
-        const ifurl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqz7TOt6SXxJzRQiaASvhL_jdSCdy_OsR7bFtaU9jj68HGM-9eRDZoKwk5sjnc_TBQKMk5esR75Cdm/pubchart?oid=830557277&amp;format=interactive';
-        localStorage.setItem('ifurl',ifurl);
-      localStorage.setItem('tbl', tbl);
-      localStorage.setItem('surl', surl);
-      localStorage.setItem('saentry', saentry);
-      localStorage.setItem('sdentry', sdentry);
-      localStorage.setItem('historylink', sheetLink);
-        localStorage.setItem('qurl', qurl);
-    }
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
             function fetchData1() {
-                var url = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
+                var url = secureData.sheetLink;
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
@@ -31,7 +17,7 @@
                    }
 
             function fetchData3() {
-                var url = 'https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview';
+                var url = secureData.sheetLink;
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
@@ -117,8 +103,12 @@ function animateText(text, elementId, className) {
         function takeData() {
             const secureData = JSON.parse(localStorage.getItem('secureData'));
             if (secureData) {
-                document.getElementById('username').innerText = secureData.cvv;
+                document.getElementById('name').innerText = secureData.name;
+                document.getElementById('mob').innerText = secureData.cvv;
                 document.getElementById('password').innerText = secureData.password;
+                var imageUrl   = secureData.img;       
+                var imgElement = document.getElementById('mypic');
+                imgElement.src = imageUrl;
             } else {
                 window.location.href = 'index.html';
             }
@@ -126,11 +116,6 @@ function animateText(text, elementId, className) {
 
         function clearData() {
             localStorage.removeItem('secureData');
-            localStorage.removeItem('tbl');
-            localStorage.removeItem('surl');
-            localStorage.removeItem('saentry');
-            localStorage.removeItem('sdentry');
-            localStorage.removeItem('historylink');
             window.location.href = 'index.html';
         }
 
