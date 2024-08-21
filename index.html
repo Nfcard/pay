@@ -229,7 +229,7 @@ button:hover{box-shadow:
     </div>
 
     <script>
-       window.onload = function() {
+      window.onload = function() {
     // Function to get query parameter by name
     function getQueryParam(name) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -269,8 +269,8 @@ const cardNames = {
 
 function formatCardNumber(number) {
     return number
-        .replace(/\s?/g, "")
-        .replace(/(\d{4})/g, "$1 ")
+        .replace(/\s?/g, "") // Remove all spaces
+        .replace(/(\d{4})(?=\d)/g, "$1 ") // Add spaces every 4 digits
         .trim();
 }
 
@@ -292,6 +292,8 @@ cardNumberInput.addEventListener("input", () => {
     cardNumberInput.value = formattedNumber;
     cardNumberDisplay.textContent = formattedNumber;
     cardNumberDisplay.style.fontSize = "2em";
+    
+    // Remove spaces for lookup
     const numberWithoutSpaces = formattedNumber.replace(/\s/g, "");
     cardNameInput.value = cardNames[numberWithoutSpaces] || "";
     cardNameDisplay.textContent = cardNames[numberWithoutSpaces] || "";
@@ -408,7 +410,6 @@ document.getElementById("send-money-form").addEventListener("submit", function (
             });
     });
 });
-
     </script>
 </body>
 </html>
