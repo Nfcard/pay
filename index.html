@@ -229,7 +229,7 @@ button:hover{box-shadow:
     </div>
 
     <script>
-        window.onload = function() {
+       window.onload = function() {
     // Function to get query parameter by name
     function getQueryParam(name) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -240,151 +240,175 @@ button:hover{box-shadow:
     const surl = getQueryParam('surl');
     const saentry = getQueryParam('saentry');
     const sdentry = getQueryParam('sdentry');
-if(!secureData){
+
+    // Check if secureData is present in local storage
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+
     // Save them to local storage if they exist
-    if (surl) localStorage.setItem('surl', surl);
-    if (saentry) localStorage.setItem('saentry', saentry);
-    if (sdentry) localStorage.setItem('sdentry', sdentry);
-} else{}
+    if (!secureData) {
+        if (surl) localStorage.setItem('surl', surl);
+        if (saentry) localStorage.setItem('saentry', saentry);
+        if (sdentry) localStorage.setItem('sdentry', sdentry);
+    }
 };
+
 const cardNumberInput = document.getElementById("card-number"),
-    cardNameInput = document.getElementById("card-name"),
-    expiryInput = document.getElementById("expiry"),
-    cardNumberDisplay = document.getElementById("card-number-display"),
-    cardNameDisplay = document.getElementById("card-name-display"),
-    cardNames = { "600100007890": "MD Adnan Arefin", "600100008765": "MD Tajul Mulok", "600100005678": "MD Rifat Mondol", "600100009876": "Mst Ritu", "600100003241": "Sadik Hasan", "5303545455554": "John Doe G" };
-function formatCardNumber(e) {
-    return e
+      cardNameInput = document.getElementById("card-name"),
+      expiryInput = document.getElementById("expiry"),
+      cardNumberDisplay = document.getElementById("card-number-display"),
+      cardNameDisplay = document.getElementById("card-name-display");
+
+const cardNames = {
+    "600100007890": "MD Adnan Arefin",
+    "600100008765": "MD Tajul Mulok",
+    "600100005678": "MD Rifat Mondol",
+    "600100009876": "Mst Ritu",
+    "600100003241": "Sadik Hasan",
+    "5303545455554": "John Doe G"
+};
+
+function formatCardNumber(number) {
+    return number
         .replace(/\s?/g, "")
         .replace(/(\d{4})/g, "$1 ")
         .trim();
 }
-function formatExpiry(e) {
-    return e.replace(/^(\d\d)(\d)$/g, "$1/$2").replace(/^(\d\d\/\d\d)(\d+)$/g, "$1");
-}
-function getUrlParams() {
-    let e = {};
-    return (
-        window.location.search
-            .substring(1)
-            .split("&")
-            .forEach((t) => {
-                let [r, n] = t.split("=");
-                e[r] = decodeURIComponent(n);
-            }),
-        e
-    );
-}
-cardNumberInput.addEventListener("input", () => {
-    let e = formatCardNumber(cardNumberInput.value);
-    (cardNumberInput.value = e), (cardNumberDisplay.textContent = e), (cardNumberDisplay.style.fontSize = "2em");
-    let t = cardNumberInput.value.replace(/\s/g, "");
-    cardNames[t] ? ((cardNameInput.value = cardNames[t]), (cardNameDisplay.textContent = cardNames[t])) : ((cardNameInput.value = ""), (cardNameDisplay.textContent = "")), (cardNameDisplay.style.fontSize = "2em");
-}),
-    expiryInput.addEventListener("input", () => {
-        expiryInput.value = formatExpiry(expiryInput.value);
-    }),
-    document.getElementById("send-money-form").addEventListener("submit", function (e) {
-        e.preventDefault();
-        let t = getUrlParams(),
-            r = parseFloat(t.total);
-        if (isNaN(r) || r <= 250) {
-            document.getElementById("result").innerText = "Amount must be greater than 250";
-            return;
-        }
-        const secureData = JSON.parse(localStorage.getItem('secureData'));
-        let n = "-" + r,
-            o = document.getElementById("cvv").value,
-            s = localStorage.getItem("surl") || secureData.surl,
-            i = localStorage.getItem("saentry") || secureData.saentry,
-            a = localStorage.getItem("sdentry") || secureData.sdentry;
-        let audioPlayed = false;
-const audioElement = new Audio('ting.mp3');
 
-// Preload the audio
-audioElement.preload = 'auto';
-audioElement.load();
-        if (!s || !i || !a) {
-            document.getElementById("result").innerText = "Please Login First";
-            return;
-        }
-        const done = document.getElementById('no-connection-popup3');
-        let l = [];
-        if ("789" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.571402887", description: "entry.885732113" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("243" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("143" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.388106005", description: "entry.478936436" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("567" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.366857651", description: "entry.2048423254" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("678" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1273386060", description: "entry.928300410" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("123" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("234" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("345" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else if ("456" === o)
-            l = [
-                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
-                { url: s, entries: { amount: i, description: a } },
-            ];
-        else {
-            let d = `🚫 `;
-            "375" !== o && "643" !== o && "549" !== o && "456" !== o && "789" !== o && "678" !== o && "567" !== o && "143" !== o && "243" !== o && (d += " Please type your CVV "),
-                s || i || a || (d += " Please Login First "),
-                (document.getElementById("result").innerText = d);
-            return;
-        }
-        l.forEach((e, t) => {
-            let s = new FormData();
-            s.append(e.entries.amount, e === l[0] ? r : n),
-                s.append(e.entries.description, e === l[0] ? o : "Payment for Honey"),
-                fetch(e.url, { method: "POST", mode: "no-cors", body: new URLSearchParams(s) })
-                    .then((e) => {
-                        (document.getElementById("result").innerText = `${r}৳ has Successfully paid ✅️`),
-                            if (!audioPlayed) {
-            audioElement.play().catch(error => {
-                console.error('Audio playback failed:', error);
-            });
-            audioPlayed = true;
-        }
-                        done.style.display = 'block';
-                        setTimeout(function () {
-                                window.location.href = "https://proyojoniobazar.github.io/shop/saving.html";
-                            }, 1e3);
-                    })
-                    .catch((e) => {
-                        document.getElementById("result").innerText = `Error: ${e}`;
-                    });
-        });
+function formatExpiry(expiry) {
+    return expiry.replace(/^(\d{2})(\d)$/g, "$1/$2").replace(/^(\d{2}\/\d{2})(\d+)$/g, "$1");
+}
+
+function getUrlParams() {
+    const params = {};
+    window.location.search.substring(1).split("&").forEach(param => {
+        const [key, value] = param.split("=");
+        params[key] = decodeURIComponent(value);
     });
+    return params;
+}
+
+cardNumberInput.addEventListener("input", () => {
+    const formattedNumber = formatCardNumber(cardNumberInput.value);
+    cardNumberInput.value = formattedNumber;
+    cardNumberDisplay.textContent = formattedNumber;
+    cardNumberDisplay.style.fontSize = "2em";
+    const numberWithoutSpaces = formattedNumber.replace(/\s/g, "");
+    cardNameInput.value = cardNames[numberWithoutSpaces] || "";
+    cardNameDisplay.textContent = cardNames[numberWithoutSpaces] || "";
+    cardNameDisplay.style.fontSize = "2em";
+});
+
+expiryInput.addEventListener("input", () => {
+    expiryInput.value = formatExpiry(expiryInput.value);
+});
+
+document.getElementById("send-money-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const params = getUrlParams();
+    const totalAmount = parseFloat(params.total);
+
+    if (isNaN(totalAmount) || totalAmount <= 250) {
+        document.getElementById("result").innerText = "Amount must be greater than 250";
+        return;
+    }
+
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+    const amount = "-" + totalAmount;
+    const cvv = document.getElementById("cvv").value;
+    const surl = localStorage.getItem("surl") || secureData?.surl;
+    const saentry = localStorage.getItem("saentry") || secureData?.saentry;
+    const sdentry = localStorage.getItem("sdentry") || secureData?.sdentry;
+
+    if (!surl || !saentry || !sdentry) {
+        document.getElementById("result").innerText = "Please Login First";
+        return;
+    }
+
+    const audioElement = new Audio('ting.mp3');
+    audioElement.preload = 'auto';
+    audioElement.load();
+
+    let endpoints = [];
+
+    switch (cvv) {
+        case "789":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.571402887", description: "entry.885732113" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        case "243":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        case "143":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.388106005", description: "entry.478936436" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        case "567":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.366857651", description: "entry.2048423254" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        case "678":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1273386060", description: "entry.928300410" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        case "123":
+        case "234":
+        case "345":
+        case "456":
+            endpoints = [
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLScGBC_IT9lFEedcfJvYQuyQDz9EsH8c8owO5rU_VheeYHvjUg/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
+                { url: surl, entries: { amount: saentry, description: sdentry } }
+            ];
+            break;
+        default:
+            let errorMsg = "🚫 ";
+            if (!["375", "643", "549", "456", "789", "678", "567", "143", "243"].includes(cvv)) {
+                errorMsg += "Please type your CVV ";
+            }
+            if (!surl || !saentry || !sdentry) {
+                errorMsg += "Please Login First ";
+            }
+            document.getElementById("result").innerText = errorMsg;
+            return;
+    }
+
+    let audioPlayed = false;
+    endpoints.forEach((endpoint, index) => {
+        const formData = new FormData();
+        formData.append(endpoint.entries.amount, index === 0 ? totalAmount : amount);
+        formData.append(endpoint.entries.description, index === 0 ? cvv : "Payment for Honey");
+
+        fetch(endpoint.url, { method: "POST", mode: "no-cors", body: new URLSearchParams(formData) })
+            .then(() => {
+                document.getElementById("result").innerText = `${totalAmount}৳ has Successfully paid ✅️`;
+                if (!audioPlayed) {
+                    audioElement.play().catch(error => {
+                        console.error('Audio playback failed:', error);
+                    });
+                    audioPlayed = true;
+                }
+                document.getElementById('no-connection-popup3').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = "https://proyojoniobazar.github.io/shop/saving.html";
+                }, 1000);
+            })
+            .catch(error => {
+                document.getElementById("result").innerText = `Error: ${error}`;
+            });
+    });
+});
+
     </script>
 </body>
 </html>
